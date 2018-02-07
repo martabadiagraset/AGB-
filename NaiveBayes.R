@@ -1,4 +1,7 @@
 setwd("/Users/Aida/Documents/Bioinformatics_Master/2nd_TERM/AGB/project")
+#USEFUL: To read the large files that we will be producing along all the process: 
+# library(data.table)
+# psi.tissue <- fread("psi.tissue.tsv")
 
 #Merge table and data preprocessing
 PSI <- read.table("gtex_heart_kidney_liver_lung_muscle_nerve_samples_formatted.psi.txt")
@@ -13,3 +16,4 @@ sample_id.tissue <- description[,c("sample_id", "tissue")]
 psi.tissue <- merge(psi_long, sample_id.tissue, by="sample_id")
 
 #Filtering NAs
+notNA_tissue <- dcast(psi.tissue, splicing_event~tissue, value.var = "PSI", fun.aggregate = function(x) {length(x[is.na(x)])/length(x)})
