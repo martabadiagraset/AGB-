@@ -29,4 +29,30 @@ psi.tissue.filtered<-psi.tissue[which(psi.tissue$splicing_event%in%SE.filtered),
 psi.tissue.filtered <- psi.tissue.filtered[psi.tissue.filtered$tissue != "Kidney", ]
 #In psi.tissue.filtered we have all the events that fulfill our restrictions (less than 10%NAs across all the tissue
 
+#To obtain our training_set
+Heart <- psi.tissue.filtered[psi.tissue.filtered$tissue == "Heart", ]
+random_Heart<-sample(unique(Heart$sample_id),100)
+Heart_randomtable<-Heart[which(Heart$sample_id%in%random_Heart),]
+unique(Heart_randomtable$sample_id) #prove 100 samples per Heart tissue
+
+Lung <- psi.tissue.filtered[psi.tissue.filtered$tissue == "Lung", ]
+random_Lung <- sample(unique(Lung$sample_id),100)
+Lung_randomtable <- Lung[which(Lung$sample_id%in%random_Lung),]
+unique(Lung_randomtable$sample_id) #prove 100 samples per Lung tissue
+
+Muscle <- psi.tissue.filtered[psi.tissue.filtered$tissue == "Muscle", ]
+random_Muscle <- sample(unique(Muscle$sample_id),100)
+Muscle_randomtable <- Muscle[which(Muscle$sample_id%in%random_Muscle),]
+unique(Muscle_randomtable$sample_id) #prove 100 samples per Muscle tissue
+
+Nerve <- psi.tissue.filtered[psi.tissue.filtered$tissue == "Nerve", ]
+random_Nerve <- sample(unique(Nerve$sample_id),100)
+Nerve_randomtable <- Nerve[which(Nerve$sample_id%in%random_Nerve),]
+unique(Nerve_randomtable$sample_id) #prove 100 samples per Nerve tissue
+
+Liver <- psi.tissue.filtered[psi.tissue.filtered$tissue == "Liver", ]
+random_Liver <- sample(unique(Liver$sample_id),100)
+Liver_randomtable <- Liver[which(Liver$sample_id%in%random_Liver),]
+unique(Liver_randomtable$sample_id) #prove 100 samples per Liver tissue
+
 
