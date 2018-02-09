@@ -81,7 +81,13 @@ Muscle_female_randomtable<-Muscle_female[which(Muscle_female$sample_id%in%random
 unique(Muscle_female_randomtable$sample_id) #prove 50 samples per Muscle tissue
 
 training_set <- rbind(Muscle_female_randomtable, Muscle_male_randomtable, Nerve_female_randomtable, Nerve_male_randomtable, Heart_female_randomtable, Heart_male_randomtable, Liver_female_randomtable, Liver_male_randomtable, Lung_female_randomtable, Lung_male_randomtable)
+training_set.def <- na.omit(training_set)
+training_set.def$PSI_Discrete[training_set.def$PSI < 0.5] <- 0
+training_set.def$PSI_Discrete[training_set.def$PSI >= 0.5] <- 1
+
 #To obtain testing set 
 training_ids<-unique(training_set$sample_id)
 testing_set <- subset(psi.tissue.filtered, !(psi.tissue.filtered$sample_id %in% training_ids))
-
+testing_set.def <- na.omit(testing_set)
+testing_set.def$PSI_Discrete[testing_set.def$PSI < 0.5] <- 0
+testing_set.def$PSI_Discrete[testing_set.def$PSI >= 0.5] <- 1
