@@ -20,3 +20,9 @@ eff_samples = 1339 #no kidney liver
 # Training and Testing sets
 training_set = 100/tissue * 5 = 34.50656% 
 
+* training_set = 100 samples/tissue -> 500 samples *NOT in GITHUB
+> (500/1449)*100
+[1] 34.50656
+
+* testing_set = 1449-500 = 949
+
