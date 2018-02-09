@@ -18,3 +18,9 @@ psi.tissue <- merge(psi_long, sample_id.tissue, by="sample_id")
 #Filtering NAs
 notNA_tissue <- dcast(psi.tissue, splicing_event~tissue, value.var = "PSI", fun.aggregate = function(x) {length(x[is.na(x)])/length(x)})
 #Other way to do it: dcast(psi.tissue, splicing_event~tissue, value.var = "PSI", fun.aggregate = function(x) {table(is.na(x))[1]/length(x)})
+#To remove splicing events that contain more than 10% of NAs across at least one tissue.
+notNA_tissue <- notNA_tissue[notNA_tissue$Muscle <= 0.1, ]
+notNA_tissue <- notNA_tissue[notNA_tissue$Nerve <= 0.1, ]
+notNA_tissue <- notNA_tissue[notNA_tissue$Heart <= 0.1, ]
+notNA_tissue <- notNA_tissue[notNA_tissue$Liver <= 0.1, ]
+notNA_tissue <- notNA_tissue[notNA_tissue$Lung <= 0.1, ]
