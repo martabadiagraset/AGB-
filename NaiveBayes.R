@@ -24,3 +24,8 @@ notNA_tissue <- notNA_tissue[notNA_tissue$Nerve <= 0.1, ]
 notNA_tissue <- notNA_tissue[notNA_tissue$Heart <= 0.1, ]
 notNA_tissue <- notNA_tissue[notNA_tissue$Liver <= 0.1, ]
 notNA_tissue <- notNA_tissue[notNA_tissue$Lung <= 0.1, ]
+SE.filtered<-notNA_tissue$splicing_event
+psi.tissue.filtered<-psi.tissue[which(psi.tissue$splicing_event%in%SE.filtered),]
+#In psi.tissue.filtered we have all the events that fulfill our restrictions (less than 10%NAs across all the tissue
+
+
