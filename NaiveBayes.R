@@ -55,4 +55,8 @@ random_Liver <- sample(unique(Liver$sample_id),100)
 Liver_randomtable <- Liver[which(Liver$sample_id%in%random_Liver),]
 unique(Liver_randomtable$sample_id) #prove 100 samples per Liver tissue
 
+#To obtain testing set 
+training_ids<-unique(training_set$sample_id)
+testing_set <- subset(psi.tissue.filtered, !(psi.tissue.filtered$sample_id %in% training_ids))
+
 
