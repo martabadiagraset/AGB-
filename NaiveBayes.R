@@ -91,3 +91,23 @@ testing_set <- subset(psi.tissue.filtered, !(psi.tissue.filtered$sample_id %in% 
 testing_set.def <- na.omit(testing_set)
 testing_set.def$PSI_Discrete[testing_set.def$PSI < 0.5] <- 0
 testing_set.def$PSI_Discrete[testing_set.def$PSI >= 0.5] <- 1
+
+# TRAINING SET INPUT (training_set.description)
+training_set.def <- fread("training_set.def.tsv")
+training_samples<-unique(as.factor(training_set.def$sample_id))
+training_set.description<-description[which(description$sample_id%in%training_samples),]
+
+# TESTING SET INPUT (testing_set.description)
+training_set.def <- fread("training_set.def.tsv")
+testing_samples<-unique(as.factor(testing_set.def$sample_id))
+testing_set.description<-description[which(description$sample_id%in%testing_samples),]
+
+# PSI INPUT with our filtered training and testing samples = training_testing.samples (training_set.def.wide)
+training_testing_set.def<-rbind(training_set.def, testing_set.def)
+training_testing_set.def.long<-training_testing_set.def[,c("sample_id","splicing_event","PSI_Discrete")]
+
+training_testing_samples<-append(as.vector(training_samples),as.vector(testing_samples)) #training_samples are already unique
+
+training_testing_set.def.long<-training_testing_set.def.long[which(as.vector(training_testing_set.def.long$sample_id)%in%training_testing_samples),]
+training_set.def.wide<-spread(training_testing_set.def.long, key=sample_id, value=PSI_Discrete)
+
