@@ -17,3 +17,4 @@ psi.tissue <- merge(psi_long, sample_id.tissue, by="sample_id")
 
 #Filtering NAs
 notNA_tissue <- dcast(psi.tissue, splicing_event~tissue, value.var = "PSI", fun.aggregate = function(x) {length(x[is.na(x)])/length(x)})
+#Other way to do it: dcast(psi.tissue, splicing_event~tissue, value.var = "PSI", fun.aggregate = function(x) {table(is.na(x))[1]/length(x)})
