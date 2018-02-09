@@ -11,7 +11,7 @@ eff_samples = 1339 #no kidney liver
 
 * depurated_notNA_tissue.tsv: percentage of NA per SE and tissue, after deleting SE rows that percentage >=0.1 (only keeping SE <=0.1 NAs).
 
-* psi.tissue.filtered (sample_id, splicing_event, PSI, tissue) *NOT in GITHUB
+* psi.tissue.filtered (sample_id, splicing_event, PSI, tissue): filtered of NAs and no kidney *NOT in GITHUB
 
 (*) graphics: 
 - notNA_tissue vs. depurated_notNA_tissue
