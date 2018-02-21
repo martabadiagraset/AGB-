@@ -123,7 +123,10 @@ save(training_testing_set.def.long, file = "training_testing_set.def.long.RData"
 
 library(tidyr)
 training_testing_set.def.wide<-spread(training_testing_set.def.long, key=sample_id, value=PSI_Discrete)
-write.table(training_testing_set.def.wide, file = "psi.formatted", sep = "\t", col.names = TRUE, quote = FALSE)
+psi.formatted<-as.data.frame(training_testing_set.def.wide)
+row.names(psi.formatted)<-psi.formatted[,1]
+psi.formatted$splicing_event<-NULL
+write.table(psi.formatted, file = "psi.formatted", sep = "\t", col.names = TRUE, quote = FALSE, row.names = TRUE)
 
 ######################################## INPUT files of NaiveBayes.py #################################################### 
 ############################## names () are Python input files of NaiveBayes function ####################################
