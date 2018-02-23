@@ -371,7 +371,7 @@ def NaiveBayes(training_file, testing_file, psi_file):
 
 # parse_input("training_set", "testing_set", "psi.formatted.test")
 
-result = NaiveBayes("test_training_set", "test_testing", "psi.formatted")
+result = NaiveBayes("training_set", "testing_set", "psi.formatted")
 
 
 
