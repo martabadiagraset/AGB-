@@ -2,28 +2,6 @@ import math
 import numpy
 import os
 
-# parser = argparse.ArgumentParser(description="Naive Bayes model using a training set and predict the tissues of a testing set with its accuracy.")
-
-# parser.add_argument('-i', '--input', 
-# 					dest = "infile", 
-# 					action = "store",
-# 					default = None,
-# 					help = "Input file")
-
-# parser.add_argument('-o', '--output', 
-# 					dest = "outfile", 
-# 					action = "store",
-# 					default = None,
-# 					help = "Output file")
-
-# parser.add_argument('-v', '--verbose', 
-# 					dest = "verbose", 
-# 					action = "store_true",
-# 					default = False,
-# 					help = "Print log in stderr")
-
-# options = parser.parse_args()
-
 def NaiveBayes(training_file, testing_file, psi_file):
 
 #####################################################################
@@ -236,7 +214,7 @@ def NaiveBayes(training_file, testing_file, psi_file):
 	
 	### Outputs with ALL SE and its corresponent H and MI values -> merge them in R by SE column ###
 	# Output file with: all SE and its corresponent H value (SE sorted by H values)
-	entropy_output = ("Entropy.txt")
+	entropy_output = ("output/Entropy.txt")
 	if os.path.exists(entropy_output):
 		print ("Entropy.txt has been already created!")
 	else:
@@ -245,7 +223,7 @@ def NaiveBayes(training_file, testing_file, psi_file):
 				out.write("%s\t%d\n"%(SE, Htissue_SE[SE]))
 
 	# Output file with: all MI values sorted
-	MI_output = ("Mututal_information.txt")
+	MI_output = ("output/Mututal_information.txt")
 	if os.path.exists(MI_output):
 		print ("Mututal_information.txt has been already created!")
 	else:
@@ -254,7 +232,7 @@ def NaiveBayes(training_file, testing_file, psi_file):
 				out.write("%s\n"%(MI))
 
 	# Output file with: all SE and its corresponent MI value (SE sorted by MI values)
-	MI_SE_output = ("Mututal_information_SE.txt")
+	MI_SE_output = ("output/Mututal_information_SE.txt")
 	if os.path.exists(MI_SE_output):
 		print ("Mututal_information_SE.txt has been already created!")
 	else:
@@ -297,8 +275,10 @@ def NaiveBayes(training_file, testing_file, psi_file):
 				elif SE in testing[sample_test][1][1]: #look if in the sample_test, the SE_selected is in list of down events
 					tissue_prob+=math.log2(tissue[SE][1][1])
 				# return tissue_prob
+			print(tissue[SE])
+			print(tissue_prob)
 			sample_test_prob.append(tissue_prob*1/n_tissues) #list of the probabilities of the sample_test to correspond to the n tissues
-		# return sample_test_prob
+		print (sample_test_prob)
 
 		print("%s done"%sample_test)
 
@@ -319,7 +299,7 @@ def NaiveBayes(training_file, testing_file, psi_file):
 	NB_results.sort(reverse=True) #sort by score
 
 	# Output file with: NB prediction results
-	NB_results_output = ("NB_results.txt")
+	NB_results_output = ("output/NB_results.txt")
 	if os.path.exists(NB_results_output):
 		print ("NB_results.txt has been already created!")
 	else:
@@ -380,18 +360,18 @@ def NaiveBayes(training_file, testing_file, psi_file):
 			FDR = FP/(FP+TP)
 			accuracy[score_tissue][6][1] = FDR
 
-	Accuracy_output = ("Accuracy.out")
+	Accuracy_output = ("output/Accuracy.out")
 	if os.path.exists(Accuracy_output):
 		print ("Accuracy.out has been already created!")
 	else:
-		with open("Accuracy.out", "a") as out_accuracy:
+		with open(Accuracy_output, "a") as out_accuracy:
 			out_accuracy.write("Score\tTissue\tTP\tFP\tFN\tTN\tTPR\tFPR\tFDR\n")
 			for key, value in accuracy.items():
 				out_accuracy.write("%s\t%s\t%s\t%s\t%s\t%s\t%.3f\t%.3f\t%.3f\n"%(key[0],key[1], value[0][1], value[1][1],value[2][1],value[3][1],value[4][1],value[5][1], value[6][1]))
 
 # parse_input("training_set", "testing_set", "psi.formatted.test")
 
-result = NaiveBayes("training_set", "testing_set", "psi.formatted")
+result = NaiveBayes("test_training_set", "test_testing", "psi.formatted")
 
 
 
