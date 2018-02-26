@@ -92,7 +92,7 @@ library(data.table)
 training_set.def <- fread("training_set.def.tsv")
 training_samples<-unique(as.factor(training_set.def$sample_id))
 training_set.description<-description[which(description$sample_id%in%training_samples),]
-write.table(training_set.description, file = "training_set.description", sep = "\t", col.names = TRUE, quote = FALSE, row.names = FALSE)
+write.table(training_set.description, file = "training_set.description", sep = "\t", col.names = FALSE, quote = FALSE, row.names = FALSE)
 
 # TESTING SET INPUT (testing_set.description)
 install.packages("miceadds")
@@ -103,7 +103,7 @@ library(miceadds)
 load.Rdata(filename = "testing_set.def.RData", "testing_set.def") #testing_set.def object
 testing_samples<-unique(as.factor(testing_set.def$sample_id))
 testing_set.description<-description[which(description$sample_id%in%testing_samples),]
-write.table(testing_set.description, file = "testing_set.description", sep = "\t", col.names = TRUE, quote = FALSE, row.names = FALSE)
+write.table(testing_set.description, file = "testing_set.description", sep = "\t", col.names = FALSE, quote = FALSE, row.names = FALSE)
 
 # PSI INPUT with our filtered training and testing samples (psi.formatted)
 training_set.def <- training_set.def[,-1] #delete 1st column (not necessary)
