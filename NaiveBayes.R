@@ -89,18 +89,15 @@ testing_set.def$PSI_Discrete[testing_set.def$PSI >= 0.5] <- 1
 # TRAINING SET INPUT (training_set.description)
 install.packages("data.table")
 library(data.table)
-training_set.def <- fread("training_set.def.tsv")
 training_samples<-unique(as.factor(training_set.def$sample_id))
 training_set.description<-description[which(description$sample_id%in%training_samples),]
 write.table(training_set.description, file = "training_set.description", sep = "\t", col.names = FALSE, quote = FALSE, row.names = FALSE)
 
 # TESTING SET INPUT (testing_set.description)
 install.packages("miceadds")
-library(miceadds)
 library(mice)
 library(lattice)
 library(miceadds)
-load.Rdata(filename = "testing_set.def.RData", "testing_set.def") #testing_set.def object
 testing_samples<-unique(as.factor(testing_set.def$sample_id))
 testing_set.description<-description[which(description$sample_id%in%testing_samples),]
 write.table(testing_set.description, file = "testing_set.description", sep = "\t", col.names = FALSE, quote = FALSE, row.names = FALSE)
@@ -112,9 +109,7 @@ training_testing_set.def<-rbind(training_set.def, testing_set.def)
 training_testing_set.def.long<-training_testing_set.def[,c("sample_id","splicing_event","PSI_Discrete")]
 
 training_testing_samples<-append(as.vector(training_samples),as.vector(testing_samples)) #training_samples are already unique
-
 training_testing_set.def.long<-training_testing_set.def.long[which(as.vector(training_testing_set.def.long$sample_id)%in%as.factor(training_testing_samples)),]
-save(training_testing_set.def.long, file = "training_testing_set.def.long.RData")
 
 library(tidyr)
 training_testing_set.def.wide<-spread(training_testing_set.def.long, key=sample_id, value=PSI_Discrete)
