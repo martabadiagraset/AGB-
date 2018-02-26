@@ -28,3 +28,7 @@ training_set = 100/tissue * 5 = 34.50656%
 > (900/1449)*100
 62.1118
 
+To have all_results: concatenated results output from Naive_Bayes_def.py (without header)
+
+Sorted accuracies:
+$ sort -rnk 1 accuracy_1.out > accuracy_1_sorted.out
