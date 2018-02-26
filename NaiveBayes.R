@@ -1,9 +1,3 @@
-setwd("/Users/Aida/Documents/Bioinformatics_Master/2nd_TERM/AGB/project")
-#USEFUL: To read the large files that we will be producing along all the process: 
-# library(data.table)
-# psi.tissue <- fread("psi.tissue.tsv")
-
-#Merge table and data preprocessing
 PSI <- read.table("gtex_heart_kidney_liver_lung_muscle_nerve_samples_formatted.psi.txt")
 library(reshape2)
 psi_long <- melt(as.matrix(PSI), value.name = "PSI")
@@ -41,7 +35,7 @@ Heart_female_randomtable<-Heart_female[which(Heart_female$sample_id%in%random_He
 unique(Heart_female_randomtable$sample_id) #prove 50 samples per Heart tissue
 
 Liver_male <- psi.tissue.filtered[psi.tissue.filtered$tissue == "Liver" & psi.tissue.filtered$gender == "Male" , ]
-random_Liver_male<-sample(unique(Liver_male$sample_id),50)
+random_Liver_male<-sample(unique(Liver_male$sample_id),67)
 Liver_male_randomtable<-Liver_male[which(Liver_male$sample_id%in%random_Liver_male),]
 unique(Liver_male_randomtable$sample_id) #prove 50 samples per Liver tissue
 
@@ -51,7 +45,7 @@ Liver_female_randomtable<-Liver_female[which(Liver_female$sample_id%in%random_Li
 unique(Liver_female_randomtable$sample_id) #prove 50 samples per Liver tissue
 
 Lung_male <- psi.tissue.filtered[psi.tissue.filtered$tissue == "Lung" & psi.tissue.filtered$gender == "Male" , ]
-random_Lung_male<-sample(unique(Lung_male$sample_id),67)
+random_Lung_male<-sample(unique(Lung_male$sample_id),50)
 Lung_male_randomtable<-Lung_male[which(Lung_male$sample_id%in%random_Lung_male),]
 unique(Lung_male_randomtable$sample_id) #prove 50 samples per Lung tissue
 
@@ -113,6 +107,7 @@ write.table(testing_set.description, file = "testing_set.description", sep = "\t
 
 # PSI INPUT with our filtered training and testing samples (psi.formatted)
 training_set.def <- training_set.def[,-1] #delete 1st column (not necessary)
+testing_set.def <- testing_set.def[, -1]
 training_testing_set.def<-rbind(training_set.def, testing_set.def)
 training_testing_set.def.long<-training_testing_set.def[,c("sample_id","splicing_event","PSI_Discrete")]
 
@@ -128,10 +123,4 @@ row.names(psi.formatted)<-psi.formatted[,1]
 psi.formatted$splicing_event<-NULL
 write.table(psi.formatted, file = "psi.formatted", sep = "\t", col.names = TRUE, quote = FALSE, row.names = TRUE)
 
-######################################## INPUT files of NaiveBayes.py #################################################### 
-############################## names () are Python input files of NaiveBayes function ####################################
-
-# training_set.description (training_file)
-# testing_set.description (testing_file)
-# psi.formatted (psi_file)
 
